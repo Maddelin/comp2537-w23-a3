@@ -35,7 +35,27 @@ async function displayPokemon(pokemonData, firstIndex, lastIndex) {
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body text-start">
-                                test
+                                <img class="card-img-top"
+                                src=
+                                "${pokemonResult.data.sprites.other.home.front_default}" alt="Pokemon 3d artwork">
+                                <h2>Abilities</h2>
+                                <ul>
+                                ${pokemonResult.data.abilities.map(slot =>
+            `<li>${slot.ability.name}</li>`).join('')
+            }
+                                </ul>                                
+                                <h2>Stats</h2>
+                                <ul>
+                                ${pokemonResult.data.stats.map(slot =>
+                `<li>${slot.stat.name}: ${slot.base_stat}</li>`).join('')
+            }
+                                </ul>
+                                <h2>Type(s):</h2>
+                                <ul>
+                                ${pokemonResult.data.types.map(slot =>
+                `<li>${slot.type.name}</li>`).join('')
+            }
+                                </ul>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
