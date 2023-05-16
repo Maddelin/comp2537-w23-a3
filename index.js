@@ -152,6 +152,20 @@ const setup = async () => {
     // Display the filters
     displayFilters();
 
+    let typeList = []
+    let filteredPokemons = pokemons
+    // Step 6.2 Filtration - Add event listener to the checkboxes
+    $('#filterNav').on('click', "input", async (event) => {
+        filteredPokemons = []
+        if (event.target.checked) {
+            typeList.push(event.target.id)
+        } else {
+            typeList.pop(event.target.id)
+        }
+        console.log(typeList)
+
+    })
+
     $('#paginationControls').on('click', ".btn", async (event) => {
         let endButtonIndex = startButtonIndex + BUTTONS_PER_PAGE;
         if (event.target.id === 'next') {
