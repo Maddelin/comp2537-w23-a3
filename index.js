@@ -77,6 +77,16 @@ const setup = async () => {
     // Step 5.1 Pagination - Get The first page of pokemon cards
     const PAGE_SIZE = 10;
     displayPokemon(pokemons, 0, PAGE_SIZE);
+
+    // Step 5.2 Pagination - Get The All the 81 - pages buttons
+    const lastPageNumber = Math.ceil(pokemons.length / PAGE_SIZE);
+
+    // Display the desired number of buttons
+    for (let i = 0; i < lastPageNumber; i++) {
+        $('#paginationControls').append(`
+        <button type="button" class="btn btn-primary" id="${i + 1}">${i + 1}</button>
+        `)
+    }
 };
 
 $(document).ready(setup);
