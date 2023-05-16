@@ -1,6 +1,20 @@
 async function displayPokemon(pokemonData, firstIndex, lastIndex) {
     const slicedPokemons = pokemonData.slice(firstIndex, lastIndex);
 
+    // Step 5.7 Pagination - Display total number of Pokémons and the number of Pokémon being displayed
+    if (lastIndex > pokemonData.length) {
+        lastIndex = pokemonData.length;
+    } if (pokemonData.length < 1) {
+        firstIndex = -1;
+    }
+
+    $('#head').empty();
+    $('#head').append(`
+        <div class="container text-center">
+            <h1>Showing ${firstIndex + 1}-${lastIndex} of ${pokemonData.length} pokemons</h1>
+        </div>
+    `)
+    
     // empty main
     $('#main').empty();
     for (let i = 0; i < slicedPokemons.length; i++) {
