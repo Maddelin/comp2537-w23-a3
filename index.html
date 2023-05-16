@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A3 Pokemon</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- add jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+  <!-- add bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.2.3/dist/journal/bootstrap.min.css" rel="stylesheet">
+
+  <!-- add bootstrap js -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+  <!-- add axios -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script src="index.js"></script>
+</head>
+
+<body>
+
+  <section id="head" class="my-4">
+  </section>
+
+  <div class="container my-4 pb-5">
+    <div class="row">
+      <div class="col-md-2 text-center text-md-start mb-4">
+        <h2>Filters</h2>
+        <form id="filterNav">
+        </form>
+      </div>
+      <div class="col text-center">
+        <h2>Pokemon</h2>
+        <section id="main" class="col-md-10">
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <section id="paginationControls" class="container text-center fixed-bottom my-4">
+  </section>
+</body>
+
+</html>
