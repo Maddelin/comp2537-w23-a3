@@ -69,6 +69,25 @@ async function displayPokemon(pokemonData, firstIndex, lastIndex) {
     };
 }
 
+function displayButton(firstButtonIndex, lastButtonIndex, activeButtonIndex, pokemonData, PAGE_SIZE) {
+    // Step 5.2 Pagination - Get The All the 81 - pages buttons
+    const lastPageNumber = Math.ceil(pokemonData.length / PAGE_SIZE);
+    if (lastButtonIndex > lastPageNumber) {
+        lastButtonIndex = lastPageNumber
+    }
+
+    // empty the buttons
+    $('#paginationControls').empty();
+
+    // Display the desired number of buttons
+    for (let i = firstButtonIndex; i < lastButtonIndex; i++) {
+        $('#paginationControls').append(`
+        <button type="button" class="btn btn-primary" id="${i + 1}">${i + 1}</button>
+        `)
+    }
+
+}
+
 const setup = async () => {
     // Step 4.1 Pokemons Grid - Fetch all pokemons names from the API
     const result = await axios.get("http://pokeapi.co/api/v2/pokemon?limit=810")
@@ -78,15 +97,41 @@ const setup = async () => {
     const PAGE_SIZE = 10;
     displayPokemon(pokemons, 0, PAGE_SIZE);
 
-    // Step 5.2 Pagination - Get The All the 81 - pages buttons
-    const lastPageNumber = Math.ceil(pokemons.length / PAGE_SIZE);
+    displayButton(0, 10, 0, pokemons, PAGE_SIZE);
 
-    // Display the desired number of buttons
-    for (let i = 0; i < lastPageNumber; i++) {
-        $('#paginationControls').append(`
-        <button type="button" class="btn btn-primary" id="${i + 1}">${i + 1}</button>
-        `)
-    }
+    $('#paginationControls').on('click', ".btn", async (event) => {
+        let startButtonIndex = 0;
+        let endButtonIndex = startButtonIndex + 10;
+        if (event.target.id === 'next') {
+            if (activeButtonNumber === endButtonIndex) {
+                startButtonIndex++;
+                endButtonIndex++;
+                activeButtonNumber++;
+            } else {
+                activeButtonNumber++;
+            }
+        } else if (event.target.id === 'previous') {
+            if (activeButtonNumber === startButtonIndex + 1) {
+                startButtonIndex--;
+                endButtonIndex--;
+                activeButtonNumber--;
+            } else {
+                activeButtonNumber--;
+            }
+        } else {
+            console.log(event.target.innerText)
+            activeButtonNumber = parseInt(event.target.innerText);
+        }
+
+        displayButton(startButtonIndex, endButtonIndex, activeButtonNumber, pokemons, PAGE_SIZE);
+
+        // Step 5.3 Pagination - Add pagination logic to THE 81 buttons
+        const startIndex = (activeButtonNumber - 1) * PAGE_SIZE;
+        const endIndex = startIndex + PAGE_SIZE;
+
+        displayPokemon(pokemons, startIndex, endIndex);
+    });
+
 };
 
 $(document).ready(setup);
