@@ -14,7 +14,7 @@ async function displayPokemon(pokemonData, firstIndex, lastIndex) {
             <h1>Showing ${firstIndex + 1}-${lastIndex} of ${pokemonData.length} pokemons</h1>
         </div>
     `)
-    
+
     // empty main
     $('#main').empty();
     for (let i = 0; i < slicedPokemons.length; i++) {
@@ -121,6 +121,17 @@ function displayButton(firstButtonIndex, lastButtonIndex, activeButtonIndex, pok
     }
 }
 
+async function displayFilters() {
+    // Step 6.1 Filtration - Fetch the Pokémon types from the API and display them in a checkbox group
+    const typeResult = await axios.get(`http://pokeapi.co/api/v2/type`);
+    $('#filterNav').append(`
+    ${typeResult.data.results.map(slot =>
+        `<input type="checkbox" id="${slot.name}">${slot.name}</input>`).join('<br>')
+        }
+    `)
+
+}
+
 const setup = async () => {
     // Step 4.1 Pokemons Grid - Fetch all pokemons names from the API
     const result = await axios.get("http://pokeapi.co/api/v2/pokemon?limit=810")
@@ -137,6 +148,9 @@ const setup = async () => {
 
     // Display the initial 5 buttons
     displayButton(startButtonIndex, BUTTONS_PER_PAGE, activeButtonNumber, pokemons, PAGE_SIZE);
+
+    // Display the filters
+    displayFilters();
 
     $('#paginationControls').on('click', ".btn", async (event) => {
         let endButtonIndex = startButtonIndex + BUTTONS_PER_PAGE;
