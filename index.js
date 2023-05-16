@@ -88,13 +88,23 @@ function displayButton(firstButtonIndex, lastButtonIndex, activeButtonIndex, pok
         $('#paginationControls').append(`
         <button type="button" class="btn btn-primary" id="${i + 1}">${i + 1}</button>
         `)
+        // Step 5.6.1 Pagination - Highlight the current page's button
+        if (i + 1 === activeButtonIndex) {
+            $(`#${i + 1}`).addClass('active')
+        }
     }
-    
+
     // Step 5.5.2 Pagination - Display the next button
     $('#paginationControls').append(`
             <button type="button" class="btn btn-primary" id="next">>></button>
     `)
 
+    // Step 5.6.2 Pagination - Hide the next and previous buttons when there is no next or previous page
+    if (activeButtonIndex === 1 || pokemonData.length < 1) {
+        $('#previous').hide();
+    } if (activeButtonIndex === lastPageNumber || pokemonData.length < 1) {
+        $('#next').hide();
+    }
 }
 
 const setup = async () => {
