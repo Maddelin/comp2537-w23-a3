@@ -19,7 +19,7 @@ async function displayPokemon(pokemonData, firstIndex, lastIndex) {
     $('#main').empty();
     for (let i = 0; i < slicedPokemons.length; i++) {
         const pokemon = slicedPokemons[i];
-        const pokemonResult = await axios.get(`http://pokeapi.co/api/v2/pokemon/${pokemon.name}`);
+        const pokemonResult = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`);
         // console.log(pokemonResult.data);
 
         // Step 4.2 Pokemons Grid - Create a pokemon card for each pokemon
@@ -123,7 +123,7 @@ function displayButton(firstButtonIndex, lastButtonIndex, activeButtonIndex, pok
 
 async function displayFilters() {
     // Step 6.1 Filtration - Fetch the Pokémon types from the API and display them in a checkbox group
-    const typeResult = await axios.get(`http://pokeapi.co/api/v2/type`);
+    const typeResult = await axios.get(`https://pokeapi.co/api/v2/type`);
     $('#filterNav').append(`
     ${typeResult.data.results.map(slot =>
         `<input type="checkbox" id="${slot.name}">${slot.name}</input>`).join('<br>')
@@ -134,7 +134,7 @@ async function displayFilters() {
 
 const setup = async () => {
     // Step 4.1 Pokemons Grid - Fetch all pokemons names from the API
-    const result = await axios.get("http://pokeapi.co/api/v2/pokemon?limit=810")
+    const result = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=810")
     const pokemons = result.data.results
 
     // Step 5.1 Pagination - Get The first page of pokemon cards
