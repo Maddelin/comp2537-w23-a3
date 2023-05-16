@@ -164,8 +164,29 @@ const setup = async () => {
         }
         console.log(typeList)
 
+        // Step 6.3 Filtration - Filter the Pokémon cards based on the selected types
+        if (typeList == []) {
+            filteredPokemons = pokemons
+        } else {
+            for (let i = 0; i < pokemons.length; i++) {
+                const pokemon = pokemons[i];
+                const pokemonDetails = await axios.get(pokemon.url);
+                let pokemonTypes = []
+                pokemonDetails.data.types.map(slot => pokemonTypes.push(slot.type.name))
+                if (typeList.every(type => pokemonTypes.includes(type))) {
+                    filteredPokemons.push(pokemon)
+                }
+            }
+        }
+
+        // display the first page of the filtered pokemons
+        displayPokemon(filteredPokemons, 0, PAGE_SIZE);
+
+        activeButtonNumber = 1;
+        displayButton(startButtonIndex, BUTTONS_PER_PAGE, activeButtonNumber, filteredPokemons, PAGE_SIZE);
     })
 
+    // add event listener to the buttons
     $('#paginationControls').on('click', ".btn", async (event) => {
         let endButtonIndex = startButtonIndex + BUTTONS_PER_PAGE;
         if (event.target.id === 'next') {
@@ -189,15 +210,15 @@ const setup = async () => {
             activeButtonNumber = parseInt(event.target.innerText);
         }
 
-        displayButton(startButtonIndex, endButtonIndex, activeButtonNumber, pokemons, PAGE_SIZE);
+        displayButton(startButtonIndex, endButtonIndex, activeButtonNumber, filteredPokemons, PAGE_SIZE);
 
         // Step 5.3 Pagination - Add pagination logic to THE 81 buttons
         const startIndex = (activeButtonNumber - 1) * PAGE_SIZE;
         const endIndex = startIndex + PAGE_SIZE;
 
-        displayPokemon(pokemons, startIndex, endIndex);
-    });
+        displayPokemon(filteredPokemons, startIndex, endIndex);
+    })
 
-};
+}
 
 $(document).ready(setup);
