@@ -10,6 +10,7 @@ async function displayPokemon(pokemonData, firstIndex, lastIndex) {
 
         // Step 4.2 Pokemons Grid - Create a pokemon card for each pokemon
         // Step 4.3 Pokemons Grid - Create a modal to display the pokemon's details
+        // Step 4.4 Pokemons Grid - Display the pokemon's details in the modal
         $('#main').append(`
             <div class="card text-center" style="width: 18rem;">
                 <img class="card-img-top" 
@@ -73,7 +74,9 @@ const setup = async () => {
     const result = await axios.get("http://pokeapi.co/api/v2/pokemon?limit=810")
     const pokemons = result.data.results
 
-    displayPokemon(pokemons, 0, 10);
+    // Step 5.1 Pagination - Get The first page of pokemon cards
+    const PAGE_SIZE = 10;
+    displayPokemon(pokemons, 0, PAGE_SIZE);
 };
 
 $(document).ready(setup);
