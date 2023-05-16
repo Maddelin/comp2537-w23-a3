@@ -97,11 +97,16 @@ const setup = async () => {
     const PAGE_SIZE = 10;
     displayPokemon(pokemons, 0, PAGE_SIZE);
 
-    displayButton(0, 10, 0, pokemons, PAGE_SIZE);
+    // Step 5.4 Pagination - Display only at max 5 pages at a time
+    BUTTONS_PER_PAGE = 5;
+    let startButtonIndex = 0;
+    let activeButtonNumber = 1;
+
+    // Display the initial 5 buttons
+    displayButton(startButtonIndex, BUTTONS_PER_PAGE, activeButtonNumber, pokemons, PAGE_SIZE);
 
     $('#paginationControls').on('click', ".btn", async (event) => {
-        let startButtonIndex = 0;
-        let endButtonIndex = startButtonIndex + 10;
+        let endButtonIndex = startButtonIndex + BUTTONS_PER_PAGE;
         if (event.target.id === 'next') {
             if (activeButtonNumber === endButtonIndex) {
                 startButtonIndex++;
