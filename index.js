@@ -79,12 +79,21 @@ function displayButton(firstButtonIndex, lastButtonIndex, activeButtonIndex, pok
     // empty the buttons
     $('#paginationControls').empty();
 
+    // Step 5.5.1 Pagination - Display the previous button
+    $('#paginationControls').append(`
+    <button type="button" class="btn btn-primary" id="previous"><<</button>
+    `)
     // Display the desired number of buttons
     for (let i = firstButtonIndex; i < lastButtonIndex; i++) {
         $('#paginationControls').append(`
         <button type="button" class="btn btn-primary" id="${i + 1}">${i + 1}</button>
         `)
     }
+    
+    // Step 5.5.2 Pagination - Display the next button
+    $('#paginationControls').append(`
+            <button type="button" class="btn btn-primary" id="next">>></button>
+    `)
 
 }
 
